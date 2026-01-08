@@ -5,10 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    public function up(): void
+    public function up()
     {
-        Schema::create('laravel_mailer_smtp_settings', function (Blueprint $table) {
+        Schema::create('smtps', function (Blueprint $table) {
             $table->id();
+            $table->string('mailer')->default('smtp');
             $table->string('host');
             $table->integer('port');
             $table->string('username')->nullable();
@@ -16,15 +17,13 @@ return new class extends Migration {
             $table->string('encryption')->nullable();
             $table->string('from_address');
             $table->string('from_name');
-            $table->string('queue')->nullable();
-            $table->integer('priority')->default(1);
-            $table->boolean('active')->default(true);
+            $table->boolean('is_default')->default(false);
             $table->timestamps();
         });
     }
 
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('laravel_mailer_smtp_settings');
+        Schema::dropIfExists('smtps');
     }
 };

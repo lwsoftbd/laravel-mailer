@@ -1,33 +1,35 @@
 <?php
 
-namespace Lwsoftbd\LaravelMailer;
+namespace LWSoftBD\LaravelMailer;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Mail\Events\MessageSending;
-use Lwsoftbd\LaravelMailer\Listeners\ResolveSmtpBeforeSend;
+use LWSoftBD\LaravelMailer\Helpers\MailConfigHelper;
 
 class LaravelMailerServiceProvider extends ServiceProvider
 {
+
+    public function boot()
+    {
+        if (config('laravel-mailer.enabled')) {
+            $this->loadRoutesFrom(__DIR__.'/routes/web.php');
+        }
+
+        $this->loadViewsFrom(__DIR__.'/resources/views', 'laravel-mailer');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+    
+
+        $this->publishes([
+            __DIR__.'/../config/laravel-mailer.php' => config_path('laravel-mailer.php'),
+        ], 'laravel-mailer-config');
+
+        MailConfigHelper::load();
+    }
+
     public function register()
     {
         $this->mergeConfigFrom(
             __DIR__.'/../config/laravel-mailer.php',
             'laravel-mailer'
         );
-    }
-
-    public function boot()
-    {
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        $this->loadRoutesFrom(__DIR__.'/Http/Routes/web.php');
-        $this->loadViewsFrom(__DIR__.'/../resources/views','laravel-mailer');
-
-        if(config('laravel-mailer.auto_listener',true)){
-            Event::listen(
-                MessageSending::class,
-                ResolveSmtpBeforeSend::class
-            );
-        }
     }
 }
