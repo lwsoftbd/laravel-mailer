@@ -2,13 +2,19 @@
 
 namespace LWSoftBD\LaravelMailer\Helpers;
 
-use LWSoftBD\LaravelMailer\Models\Smtp;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Schema;
+use LWSoftBD\LaravelMailer\Models\Smtp;
 
 class MailConfigHelper
 {
     public static function load()
     {
+        // ✅ Table না থাকলে কিছুই করবে না
+        if (!Schema::hasTable('smtps')) {
+            return;
+        }
+
         $smtp = Smtp::where('is_default', true)->first();
 
         if (!$smtp) {
