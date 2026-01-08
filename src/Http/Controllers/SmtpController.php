@@ -96,8 +96,8 @@ class SmtpController extends Controller
         try {
             $html = '
                 <div style="padding-left:20px;padding-top:20px;">
+                    <p>Welcome! Laravel Mail SMTP Configured Successfully</p>
                     <p>This is a test email from Laravel Mailer</p>
-                    <br/>
                     <p> - </p>
                     <p> Powered by: <a href="http://lwsoftbd.com" style="text-decoration-line:none;"><strong>LW Soft BD</strong></a> </p>
                 </div>
