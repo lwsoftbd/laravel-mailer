@@ -1,0 +1,30 @@
+{
+    "name": "lwsoftbd/laravel-mailer",
+    "description": "Dynamic SMTP Mailer for Laravel (Database Driven)",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "LW Soft BD",
+            "email": "info@lwsoftbd.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "laravel/framework": "^12",
+        "illuminate/support": "^9|^10|^11|^12"
+    },
+    "autoload": {
+        "psr-4": {
+            "LWSoftBD\\LaravelMailer\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LWSoftBD\\LaravelMailer\\LaravelMailerServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable"
+}
